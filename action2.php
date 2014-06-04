@@ -2,10 +2,11 @@
 session_start();
 $A = $_SESSION["reference"];
 $B = $_SESSION["zone"];
+$C = $_SESSION["table"];
 include ("db2.php");
 
-//Recupération résultat requête REF
-$query = "SELECT * FROM allref WHERE REF = '$A' "; 
+//Recupration rsultat requte REF
+$query = "SELECT * FROM $C WHERE REF = '$A' "; 
 
 $result = mysql_query($query) or die("<br>** Error database premiere requete : ".mysql_error()."</b><br>$sql");
 $row = mysql_fetch_row($result);
@@ -51,12 +52,18 @@ $CONDITIONinv		=	 $_POST['CONDITIONMODIF'];
 $MANDRINinv	=	 $_POST['MANDRINMODIF'];
 $NBinv		=	 $_POST['NBMODIF'];
 $COMinv		=	 $_POST['COM_INV'];
+if(isset($_POST['DECHETMODIF'])){
+	$DECHET		= $_POST['DECHETMODIF']; 
+}
+else{
+	$DECHET		=	 0 ;  //Le checkbox n'a pas Ã©tÃ© cochÃ©e
+}
 	
-$query1 = "INSERT INTO `inventaire`(`REF`, `CODE`, `FAM`, `DETAIL`, `FIBRE`, `COULEUR`, `BACK`, `GRS`, `LARG`, `LONG`, `HDIAM`, `PNET`, `PBRUT`, `MARQUE`, `REMARQUE`, `DEFAUT`, `ACTION`, `INT_CONDITION`, `MANDRIN`, `NB`, `DP_CODE`, `COM_DE`, `CODEinv`, `DETAILinv`, `FIBREinv`, `COULEURinv`, `BACKinv`, `GRSinv`, `LARGinv`, `LONGinv`, `HDIAMinv`, `PNETinv`, `PBRUTinv`, `MARQUEinv`, `REMARQUEinv`, `DEFAUTinv`, `ACTIONinv`, `INT_CONDITIONinv`, `MANDRINinv`, `NBinv`, `DP_CODEinv`, `COM_INV`)
+$query1 = "INSERT INTO `inventaire`(`REF`, `CODE`, `FAM`, `DETAIL`, `FIBRE`, `COULEUR`, `BACK`, `GRS`, `LARG`, `LONG`, `HDIAM`, `PNET`, `PBRUT`, `MARQUE`, `REMARQUE`, `DEFAUT`, `ACTION`, `INT_CONDITION`, `MANDRIN`, `NB`, `DP_CODE`, `COM_DE`, `CODEinv`, `DETAILinv`, `FIBREinv`, `COULEURinv`, `BACKinv`, `GRSinv`, `LARGinv`, `LONGinv`, `HDIAMinv`, `PNETinv`, `PBRUTinv`, `MARQUEinv`, `REMARQUEinv`, `DEFAUTinv`, `ACTIONinv`, `INT_CONDITIONinv`, `MANDRINinv`, `NBinv`, `DP_CODEinv`, `COM_INV`, `DECHET`)
 VALUES ('$REF','$CODE','$FAM','$DETAIL','$FIBRE','$COULEUR','$BACK','$GRS','$LARG','$LONG','$HDIAM','$PNET','$PBRUT','$MARQUE',
 '$REMARQUE','$DEFAUT','$ACTION','$INT_CONDITION','$MANDRIN','$NB','$DP_CODE','$COM_DE','$CODEinv','$DETAILinv','$FIBREinv','$COULEURinv','$BACKinv',
 '$GRSinv','$LARGinv','$LONGinv','$HDIAMinv','$PNETinv','$PBRUTinv','$MARQUEinv','$REMARQUEinv','$DEFAUTinv','$ACTIONinv',
-'$CONDITIONinv','$MANDRINinv','$NBinv','$B','$COMinv')";
+'$CONDITIONinv','$MANDRINinv','$NBinv','$B','$COMinv','$DECHET')";
 
 $req = mysql_query($query1) or die ("<br>** Error in database table <b>".mysql_error()."</b><br>");
 
